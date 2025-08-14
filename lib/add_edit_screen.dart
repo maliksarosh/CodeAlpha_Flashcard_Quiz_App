@@ -69,21 +69,17 @@ class AddEditScreenState extends State<AddEditScreen> {
           key: _formKey,
           child: Column(
             children: [
-              // =======================================================================
-              // === THE CHANGE IS HIGHLIGHTED IN THESE TWO WIDGETS ===
-              // =======================================================================
+    
               TextFormField(
                 controller: _questionController,
-                // HIGHLIGHT: This style makes the typed text dark.
-                style: const TextStyle(color: Colors.black87),
-                decoration: InputDecoration(
-                  labelText: 'Question',
-                  // HIGHLIGHT: This style makes the placeholder text darker.
-                  labelStyle: TextStyle(color: Colors.grey.shade700),
-                  border: const OutlineInputBorder(),
+                style: const TextStyle(color: Color.fromARGB(255, 255, 254, 254)),
+                decoration:const  InputDecoration(
+                  labelText: 'Question',          
+                  labelStyle: TextStyle(color: Color.fromARGB(255, 226, 226, 226)),
+                  border:  OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color:  Color.fromARGB(225, 4, 36, 54),
+                        color:  Color.fromARGB(224, 245, 245, 245),
                         width: 2.0),
                   ),
                 ),
@@ -97,16 +93,16 @@ class AddEditScreenState extends State<AddEditScreen> {
               const SizedBox(height: 16),
               TextFormField(
                 controller: _answerController,
-                // HIGHLIGHT: This style makes the typed text dark.
-                style: const TextStyle(color: Colors.black87),
-                decoration: InputDecoration(
+               
+                style: const TextStyle(color: Color.fromARGB(255, 255, 253, 253)),
+                decoration:const InputDecoration(
                   labelText: 'Answer',
-                  // HIGHLIGHT: This style makes the placeholder text darker.
-                  labelStyle: TextStyle(color: Colors.grey.shade700),
-                  border: const OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
+                  
+                  labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                  border:  OutlineInputBorder(),
+                  focusedBorder:  OutlineInputBorder(
                     borderSide: BorderSide(
-                        color:  Color.fromARGB(225, 4, 36, 54),
+                        color:  Color.fromARGB(224, 245, 245, 245),
                         width: 2.0),
                   ),
                 ),
@@ -117,7 +113,7 @@ class AddEditScreenState extends State<AddEditScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
@@ -125,12 +121,12 @@ class AddEditScreenState extends State<AddEditScreen> {
                   onPressed: _saveFlashcard,
                   label: const Text('Save'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(225, 4, 36, 54),
+                    backgroundColor: const Color.fromARGB(225, 248, 112, 96),
                     foregroundColor: const Color.fromARGB(224, 255, 255, 255),
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                    ),
+                    ),textStyle: const TextStyle(fontSize: 20),
                   ),
                 ),
               ),

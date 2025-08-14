@@ -1,23 +1,19 @@
-# THIS IS THE REQUIRED NAME FIELD. 
-# It should match your project folder name, using underscores.
+# pubspec.yaml (Corrected Version)
+
 name: flashcard_quiz_app
 description: "A new Flutter project for a flashcard quiz app."
 
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is good practice for private apps.
-publish_to: 'none' # Remove this line if you plan to publish the app.
+publish_to: 'none'
 
-# The following defines the version and build number for your application.
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.1.0 <4.0.0' # Adjust this to your Flutter SDK version if needed
+  sdk: '>=3.1.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
-  # Your database packages
   sqflite: ^2.3.0
   path: ^1.8.3
   flip_card: ^0.7.0
@@ -26,9 +22,22 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  
-  flutter_lints: ^2.0.0
 
-# The following section is specific to Flutter.
+  flutter_lints: ^2.0.0
+  # --- PACKAGE MOVED HERE ---
+  flutter_launcher_icons: "^0.13.1"
+
 flutter:
   uses-material-design: true
+
+  # --- ASSETS SECTION FIXED AND CORRECTLY INDENTED ---
+  assets:
+    - assets/images/ # Be specific with the folder path for clarity
+
+# --- THIS ENTIRE SECTION IS NEW, ADDED AT THE END, WITH NO INDENTATION ---
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  # --- PATH CORRECTED: Use forward slashes and a PNG file for best quality ---
+  image_path: "assets/images/Quizicon.ico"
+  min_sdk_android: 21

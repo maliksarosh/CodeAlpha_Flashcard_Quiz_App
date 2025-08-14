@@ -40,7 +40,7 @@ class CardListScreenState extends State<CardListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Flashcards'),
+        title: const Text('My Question Cards'),
         elevation: 0,
         backgroundColor: Theme.of(context).colorScheme.surface,
       ),
@@ -55,18 +55,18 @@ class CardListScreenState extends State<CardListScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.style, size: 80, color: Color.fromARGB(225, 4, 36, 54)),
+                  const Icon(Icons.style, size: 80, color: Color.fromARGB(255, 253, 253, 253)),
                   const SizedBox(height: 16),
                   Text(
                     'Your collection is empty.',
                     style: textTheme.headlineSmall
-                        ?.copyWith(color:  Color.fromARGB(225, 4, 36, 54)),
+                        ?.copyWith(color:  const Color.fromARGB(255, 244, 245, 245)),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'Press the \'+\' button to create your first card.',
                     style:
-                        textTheme.bodyMedium?.copyWith(color:  Color.fromARGB(225, 4, 36, 54)),
+                        textTheme.bodyMedium?.copyWith(color:  const Color.fromARGB(255, 246, 246, 247)),
                   ),
                 ],
               ),
@@ -77,20 +77,20 @@ class CardListScreenState extends State<CardListScreen> {
           return ListView.separated(
             padding: const EdgeInsets.all(8.0),
             itemCount: flashcards.length,
-            separatorBuilder: (context, index) => const SizedBox(height: 4),
+            separatorBuilder: (context, index) => const SizedBox(height: 5), 
             itemBuilder: (context, index) {
               final card = flashcards[index];
               return Card(
                 child: ListTile(
                   contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),iconColor: const Color.fromARGB(255, 248, 112, 96),
                   title: Text(card.question,
                       style: textTheme.bodyLarge?.copyWith(fontSize: 18)),
                   subtitle: Padding(
                     padding: const EdgeInsets.only(top: 4.0),
                     child: Text(card.answer,
                         style: textTheme.bodyMedium
-                            ?.copyWith(color: Colors.white70)),
+                            ?.copyWith(color: const Color.fromARGB(241, 184, 182, 182))),
                   ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,

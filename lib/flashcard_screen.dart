@@ -22,11 +22,14 @@ class FlashcardScreenState extends State<FlashcardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flashcard Quiz'),
+        title: const Text('Flashcard Quiz',
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+        centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.add_circle_outline),
-            tooltip: 'Add New Card',
+            tooltip: 'Add New Card',color: const Color.fromARGB(255,248, 112, 96),
             onPressed: () async {
               await Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const AddEditScreen()),
@@ -36,7 +39,7 @@ class FlashcardScreenState extends State<FlashcardScreen> {
           ),
           IconButton(
             icon: const Icon(Icons.list_alt),
-            tooltip: 'View All Cards',
+            tooltip: 'View All Cards',color: const Color.fromARGB(255,248, 112, 96),
             onPressed: () async {
               await Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const CardListScreen()),
@@ -46,43 +49,64 @@ class FlashcardScreenState extends State<FlashcardScreen> {
           ),
         ],
       ),
-      body: FutureBuilder<List<Flashcard>>(
-        future: _dbHelper.getFlashcards(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.apps_outlined,
-                      size: 80, color: Color.fromARGB(153, 141, 2, 2)),
-                  const SizedBox(height: 16),
-                  Text(
-                    'No cards to review.',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall
-                        ?.copyWith(color:  Color.fromARGB(225, 4, 36, 54)),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Press the '+' icon to add your first card.",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(color:  Color.fromARGB(225, 4, 36, 54)),
-                  ),
-                ],
+       body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+               Image.asset(
+                'assets/images/Quiz.png',
+                height: 170, // You can adjust the height as needed
               ),
-            );
-          } else {
-            return FlashcardView(flashcards: snapshot.data!);
-          }
-        },
+              const SizedBox(height: 20), // Consistent spacing
+
+               FutureBuilder<List<Flashcard>>(
+                future: _dbHelper.getFlashcards(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                     return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 40), // Add some top spacing
+                          const Icon(Icons.apps_outlined,
+                              size: 80,
+                              color: Color.fromARGB(204, 248, 112, 96)),
+                          const SizedBox(height: 16),
+                          Text(
+                            'No cards to review.',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall
+                                ?.copyWith(
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255)),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            "Press the '+' icon to add your first card.",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    color: const Color.fromARGB(
+                                        230, 153, 152, 152)),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                     return FlashcardView(flashcards: snapshot.data!);
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -103,27 +127,20 @@ class _FlashcardViewState extends State<FlashcardView> {
   @override
   Widget build(BuildContext context) {
     if (_currentIndex >= widget.flashcards.length) {
-      _currentIndex = 0;
+       _currentIndex = 0;
     }
 
     final textTheme = Theme.of(context).textTheme;
 
-    Widget buildCardFace(String text) {
+     Widget buildCardFace(String text) {
       return SizedBox(
         height: 250,
         child: Card(
-          color: Colors.transparent,
+          color: const Color.fromARGB(246, 14, 13, 13),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              gradient: LinearGradient(
-                colors: [
-                  Colors.blue.shade800,
-                  Colors.purple.shade700,
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+              color: const Color.fromARGB(225, 179, 163, 148),
             ),
             child: Center(
               child: Padding(
@@ -140,64 +157,55 @@ class _FlashcardViewState extends State<FlashcardView> {
       );
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            'Question ${_currentIndex + 1} of ${widget.flashcards.length}',
-            textAlign: TextAlign.center,
-            style: textTheme.bodyLarge?.copyWith(color: const Color.fromARGB(179, 0, 0, 0)),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          'Question ${_currentIndex + 1} of ${widget.flashcards.length}',
+          textAlign: TextAlign.center,
+          style: textTheme.bodyLarge
+              ?.copyWith(color: const Color.fromARGB(255, 253, 251, 251)),
+        ),
+        const SizedBox(height: 16),
+        FlipCard(
+          key: ValueKey(
+              _currentIndex), // Ensures the card rebuilds on index change
+          controller: _cardController,
+          direction: FlipDirection.HORIZONTAL,
+          front: buildCardFace(widget.flashcards[_currentIndex].question),
+          back: buildCardFace(widget.flashcards[_currentIndex].answer),
+        ),
+        const SizedBox(height: 26),
+        ElevatedButton.icon(
+          icon: const Icon(Icons.flip_camera_android),
+          onPressed: () {
+            _cardController.toggleCard();
+          },
+          label: const Text('Show Answer'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(225, 248, 112, 96),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0)),
+            foregroundColor: const Color.fromARGB(255, 243, 243, 243),
+            padding: const EdgeInsets.symmetric(vertical: 16),
           ),
-          const SizedBox(height: 16),
-          FlipCard(
-            key: ValueKey(_currentIndex),
-            controller: _cardController,
-            direction: FlipDirection.HORIZONTAL,
-            front: buildCardFace(widget.flashcards[_currentIndex].question),
-            back: buildCardFace(widget.flashcards[_currentIndex].answer),
-          ),
-          const SizedBox(height: 24),
-          // =======================================================================
-          // === THE CHANGE IS HIGHLIGHTED INSIDE THIS BUTTON'S STYLE ===
-          // =======================================================================
-          ElevatedButton.icon(
-            icon: const Icon(Icons.flip_camera_android),
-            onPressed: () {
-              _cardController.toggleCard();
-            },
-            label: const Text('Show Answer'),
-            style: ElevatedButton.styleFrom(
-              // HIGHLIGHT: Change this line to set your desired color.
-              // I am using a dark green as an example.
-              backgroundColor:  Color.fromARGB(225, 4, 36, 54),
-
-              // This sets the text and icon color.
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(vertical: 16),
+        ),
+        const SizedBox(height: 40),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.arrow_back_ios, size: 28),
+              onPressed: _showPreviousCard,
             ),
-          ),
-          // =======================================================================
-          // === END OF THE CHANGE ===
-          // =======================================================================
-          const SizedBox(height: 40),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.arrow_back_ios, size: 28),
-                onPressed: _showPreviousCard,
-              ),
-              IconButton(
-                icon: const Icon(Icons.arrow_forward_ios, size: 28),
-                onPressed: _showNextCard,
-              ),
-            ],
-          ),
-        ],
-      ),
+            IconButton(
+              icon: const Icon(Icons.arrow_forward_ios, size: 28),
+              onPressed: _showNextCard,
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -209,6 +217,7 @@ class _FlashcardViewState extends State<FlashcardView> {
       } else if (_currentIndex < cardCount - 1) {
         _currentIndex++;
       } else {
+        // Loop back to the beginning
         _currentIndex = 0;
       }
     });
@@ -222,6 +231,7 @@ class _FlashcardViewState extends State<FlashcardView> {
       } else if (_currentIndex > 0) {
         _currentIndex--;
       } else {
+        // Loop back to the end
         _currentIndex = cardCount - 1;
       }
     });
