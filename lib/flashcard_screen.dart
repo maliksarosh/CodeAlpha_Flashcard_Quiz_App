@@ -130,8 +130,7 @@ class _FlashcardViewState extends State<FlashcardView> {
        _currentIndex = 0;
     }
 
-    final textTheme = Theme.of(context).textTheme;
-
+    
      Widget buildCardFace(String text) {
       return SizedBox(
         height: 250,
@@ -140,7 +139,7 @@ class _FlashcardViewState extends State<FlashcardView> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              color: const Color.fromARGB(225, 179, 163, 148),
+              color: const Color.fromARGB(248, 37, 133, 107),
             ),
             child: Center(
               child: Padding(
@@ -148,7 +147,11 @@ class _FlashcardViewState extends State<FlashcardView> {
                 child: Text(
                   text,
                   textAlign: TextAlign.center,
-                  style: textTheme.bodyLarge,
+                  style:const TextStyle(
+                    fontSize: 28,
+                    color:  Color.fromARGB(255, 253, 251, 251),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -164,8 +167,11 @@ class _FlashcardViewState extends State<FlashcardView> {
         Text(
           'Question ${_currentIndex + 1} of ${widget.flashcards.length}',
           textAlign: TextAlign.center,
-          style: textTheme.bodyLarge
-              ?.copyWith(color: const Color.fromARGB(255, 253, 251, 251)),
+          style: const TextStyle(
+            fontSize: 23,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 255, 255, 255),
+          ),
         ),
         const SizedBox(height: 16),
         FlipCard(
@@ -176,13 +182,14 @@ class _FlashcardViewState extends State<FlashcardView> {
           front: buildCardFace(widget.flashcards[_currentIndex].question),
           back: buildCardFace(widget.flashcards[_currentIndex].answer),
         ),
-        const SizedBox(height: 26),
+        const SizedBox(height: 24),
         ElevatedButton.icon(
           icon: const Icon(Icons.flip_camera_android),
           onPressed: () {
             _cardController.toggleCard();
           },
-          label: const Text('Show Answer'),
+          label: const Text('Show Answer' 
+              ,style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color.fromARGB(225, 248, 112, 96),
             shape: RoundedRectangleBorder(
